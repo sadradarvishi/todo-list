@@ -19,10 +19,16 @@ class TasksController(APIView, LimitOffsetPagination):
             user = request.user
             data = request.data
             id_ = data.get('id')
+            title = data.get('title')
 
             if id_:
                 data_qs = self.tasks_logic.get_task_by_id(id_)
-                serialized_data = TasksSerializer(data_qs, many=True)
+                serialized_data = TasksSerializer(data_qs, many=False)
+                return Response(serialized_data.data, HTTP_200_OK)
+
+            if title:
+                data_qs = self.tasks_logic.get_task_by_title(title)
+                serialized_data = TasksSerializer(data_qs, many=False)
                 return Response(serialized_data.data, HTTP_200_OK)
 
             data_qs = self.tasks_logic.get_all_tasks(user)

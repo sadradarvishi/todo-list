@@ -12,3 +12,7 @@ class TasksLogic:
         return self.tasks_dao.get_all_tasks(username=username)
 
     def get_task_by_id(self, id_):
+        return self.tasks_dao.get_task_by_id(id_)
+
+    def get_task_by_title(self, title):
+        return self.tasks_dao.get_task_by_title(title)
